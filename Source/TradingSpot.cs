@@ -53,9 +53,9 @@ namespace TradingSpot
                     if (lord.LordJob is LordJob_TradeWithColony || this.CheckVisitor(lord.LordJob))
                     {
                         FieldInfo chillSpotFI = lord.LordJob.GetType().GetField("chillSpot", BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-                        chillSpotFI.SetValue(lord.LordJob, position);
-                        LordToil curLordToil = lord.CurLordToil;
-                        if (curLordToil is LordToil_Travel lordToil_Travel)
+                        chillSpotFI.SetValue(lord.LordJob, position);                        LordToil curLordToil = lord.CurLordToil;
+                        LordToil_Travel lordToil_Travel = curLordToil as LordToil_Travel;
+                        if (lordToil_Travel != null)
                         {
                             if (lordToil_Travel.FlagLoc != position)
                             {
@@ -63,37 +63,47 @@ namespace TradingSpot
                                 lordToil_Travel.UpdateAllDuties();
                             }
                         }
-                        else if (curLordToil is LordToil_DefendPoint lordToil_DefendPoint)
+                        else
                         {
-                            if (lordToil_DefendPoint.FlagLoc != position)
+                            LordToil_DefendPoint lordToil_DefendPoint = curLordToil as LordToil_DefendPoint;
+                            if (lordToil_DefendPoint != null)
                             {
-                                lordToil_DefendPoint.SetDefendPoint(position);
-                                lordToil_DefendPoint.UpdateAllDuties();
+                                if (lordToil_DefendPoint.FlagLoc != position)
+                                {
+                                    lordToil_DefendPoint.SetDefendPoint(position);
+                                    lordToil_DefendPoint.UpdateAllDuties();
+                                }
                             }
                         }
                     }
-                }
-            }
+                }            }
         }
 
         private bool CheckVisitor(LordJob lordJob)
         {
-            if (hasHospitality || !Settings.VisitorsGoToTradeSpot)
+            if (hasHospitality)
                 return false;
+            
+            var mod = LoadedModManager.GetMod<SettingsController>();
+            if (mod == null || mod.settings == null || !mod.settings.VisitorsGoToTradeSpot)
+                return false;
+                
             if (lordJob is LordJob_VisitColony)
-                return true;
-            return false;
+                return true;            return false;
         }
     }
+    
     public class WorldComp : WorldComponent
     {
         public WorldComp(World world) : base(world) { }
         public override void FinalizeInit()
         {
             base.FinalizeInit();
-            var mod = LoadedModManager.GetMod(typeof(SettingsController));
-            var s = mod.GetSettings<Settings>();
-            s.ApplyWorkSetting();
+            var mod = LoadedModManager.GetMod<SettingsController>();
+            if (mod != null && mod.settings != null)
+            {
+                mod.settings.ApplyWorkSetting();
+            }
         }
     }
 }

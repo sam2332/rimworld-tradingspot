@@ -3,11 +3,11 @@
 set RIMWORLD_PATH=C:\Program Files (x86)\Steam\steamapps\common\RimWorld
 set ASSEMBLY_CSHARP=%RIMWORLD_PATH%\RimWorldWin64_Data\Managed\Assembly-CSharp.dll
 set UNITYENGINE=%RIMWORLD_PATH%\RimWorldWin64_Data\Managed\UnityEngine.dll
-set HARMONY="C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2009463077\1.4\Assemblies\0Harmony.dll"
+set HARMONY="C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll"
 set UNITYCOREMODULE="C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll"
 :: Set output path
 
-set OUTPUT_PATH="C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\rimworld-tradingspot\Assemblies\rimworld-tradingspot.dll"
+set OUTPUT_PATH="C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\rimworld-tradingspot\Assemblies\TradingSpot.dll"
 
 :: Compile the mod
 
