@@ -13,6 +13,7 @@ the installed modes are located in C:\Program Files (x86)\Steam\steamapps\worksh
 
 **Decompiled Mod Files:**
 create a folder called /{modname} Source/ and run ilspycmd to extract the decompiled code for your mod.
+use this command: `ilspycmd -p --nested-directories -o "0Harmony Source" "C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll"`
 
 **Game Files:**
 Game Source Code: /Game Source/
