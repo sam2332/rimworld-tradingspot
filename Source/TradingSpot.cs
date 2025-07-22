@@ -39,7 +39,7 @@ namespace TradingSpot
             }
         }
 
-        public override void Tick()
+        protected override void Tick()
         {
             base.Tick();
             ++this.count;
@@ -96,9 +96,9 @@ namespace TradingSpot
     public class WorldComp : WorldComponent
     {
         public WorldComp(World world) : base(world) { }
-        public override void FinalizeInit()
+        public override void FinalizeInit(bool fromLoad)
         {
-            base.FinalizeInit();
+            base.FinalizeInit(fromLoad);
             var mod = LoadedModManager.GetMod<SettingsController>();
             if (mod != null && mod.settings != null)
             {
